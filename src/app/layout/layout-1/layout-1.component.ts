@@ -16,17 +16,8 @@ export class Layout1Component {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
+  constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
 
-  }
-
-  showIfNotLogged() {
-    this.authService.isLoggedIn
-  }
-
-  bye() {
-    this.authService.logout()
-  }
 
 }
 

@@ -11,8 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from './auth/auth.service';
 import { Layout1Component } from './layout/layout-1/layout-1.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatMenuModule } from '@angular/material';
-
+import {MaterialModule} from './material.module';
 
 @NgModule({
   declarations: [
@@ -28,12 +27,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     ReactiveFormsModule,
     HttpModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatMenuModule
+    MaterialModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

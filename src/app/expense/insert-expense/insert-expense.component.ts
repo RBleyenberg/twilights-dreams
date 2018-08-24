@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-insert-expense',
@@ -24,8 +26,11 @@ export class InsertExpenseComponent implements OnInit {
               private expenseService: ExpenseService,
               private route: ActivatedRoute,
               private router: Router,
+              private ngZone: NgZone,
               private datePipe: DatePipe) {
   }
+
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
   expdate = new FormControl('', [Validators.required]);
   expaccount = new FormControl('', [Validators.required]);
@@ -41,8 +46,8 @@ export class InsertExpenseComponent implements OnInit {
         this.pgTitle = 'Edit';
         this.btnLbl = 'Update';
       } else {
-        this.pgTitle = 'Add';
-        this.btnLbl = 'Submit';
+        this.pgTitle = 'Nieuwe';
+        this.btnLbl = 'Verstuur';
       }
     });
 

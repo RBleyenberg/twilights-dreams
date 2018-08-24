@@ -9,13 +9,15 @@ import { AuthGuard } from '../auth/auth-guard.service';
 import { ExpenseService } from './expense.service';
 import { ReportExpenseComponent } from './report-expense/report-expense.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MaterialModule} from '../material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ExpenseRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   declarations: [
     InsertExpenseComponent,

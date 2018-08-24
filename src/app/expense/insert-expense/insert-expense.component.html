@@ -1,48 +1,46 @@
-<div class="container pagecontainer">
-  <div class="page-header">
-    <h1>{{ pgTitle }} Expense</h1>
-  </div>
 
-  <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" class="form-horizontal" novalidate autocomplete="off">
-    <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expdate').invalid && expenseForm.get('expdate').dirty}">
-      <label for="expdt" class="col-sm-2 control-label">Date</label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></div>
-        <input type="date" class="form-control" id="expdt" [formControl]="expdate" placeholder="yyyy-mm-dd">
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expaccount').invalid && expenseForm.get('expaccount').dirty}">
-      <label class="col-sm-2 control-label">Account</label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></div>
-        <select class="form-control" [formControl]="expaccount">
-          <option></option>
-          <option *ngFor="let a of acc" >{{a}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{'has-error': expenseForm.get('expamt').invalid && expenseForm.get('expamt').dirty}">
-      <label for="expamt" class="col-sm-2 control-label">Amount</label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon">$</div>
-        <input type="number" class="form-control" id="expamt" [formControl]="expamt" placeholder="Enter amount">
-      </div>
+  <h1 class="page-header">{{ pgTitle }} uitgave</h1>
 
-    </div>
-    <div class="form-group">
-      <label for="expdesc" class="col-sm-2 control-label">Description</label>
-      <div class="input-group col-sm-10">
-        <textarea class="form-control" id="expdesc" rows="3" [formControl]="expdesc" placeholder="Description"></textarea>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label"></label>
-      <div class="col-sm-10">
-        <button type="submit" [disabled]="expenseForm.invalid" class="btn btn-primary">{{ btnLbl }}</button>
-        <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="reset" class="btn btn-default" *ngIf="btnLbl == 'Update'" (click)="onBack()">Back</button>
-      </div>
-    </div>
-  </form>
+<mat-card class="card content-uitgave">
+  <mat-card-header>
+    <!--<div mat-card-avatar class="example-header-image"></div>-->
+    <mat-card-title>Nieuwe uitgave</mat-card-title>
+    <mat-card-subtitle>voer uw uitgave in en druk op verstuur</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
-</div>
+    <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" novalidate autocomplete="off">
+      <mat-form-field class="date-picker-style">
+        <input matInput [formControl]="expdate" [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="select-style">
+        <mat-select placeholder="Soort uitgave" [formControl]="expaccount" name="expense account">
+          <mat-option *ngFor="let a of acc" [value]="a">
+            {{a}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field  class="amount-style">
+        <input type="number" matInput placeholder="Uitgave bedrag" [formControl]="expamt">
+      </mat-form-field>
+      <mat-form-field  class="description-style" [style.fontSize]="16">
+        <mat-label>Omschrijving van de uitgave</mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  [formControl]="expdesc"
+                  cdkAutosizeMinRows="4"
+                  cdkAutosizeMaxRows="6"></textarea>
+      </mat-form-field>
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button type="reset" mat-button color="warn">Cancel</button>
+    <button type="reset" *ngIf="btnLbl == 'Update'" (click)="onBack()" mat-button color="warn">Cancel</button>
+    <span class="flex-buttons-style"></span>
+    <button type="submit" [disabled]="expenseForm.invalid" mat-raised-button color="primary">{{ btnLbl }}</button>
+  </mat-card-actions>
+</mat-card>

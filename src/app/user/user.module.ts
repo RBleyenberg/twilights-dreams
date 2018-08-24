@@ -8,13 +8,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from './user.service';
 import {AuthService} from '../auth/auth.service';
 import {AuthGuard} from '../auth/auth-guard.service';
+import {MaterialModule} from '../material.module';
 
 @NgModule({
   imports: [
     CommonModule,
     UserRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   declarations: [UserLoginComponent, UserRegisterComponent],
   providers: [
