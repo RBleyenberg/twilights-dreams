@@ -34,8 +34,6 @@ export class ReportExpenseComponent implements OnInit {
   qreport: string;
   qstartdt: string;
   qenddt: string;
-  qpage: number;
-  qsort: string;
   exptotal: number;
 
   constructor(private fb: FormBuilder,
@@ -63,8 +61,6 @@ export class ReportExpenseComponent implements OnInit {
       this.qreport = params['report'] || '';
       this.qstartdt = params['startdt'] || '';
       this.qenddt = params['enddt'] || '';
-      this.qpage = params['page'] || '';
-      this.qsort = params['sortby'] || '';
 
       if (this.qreport !== '') {
         const payload: any = {};
@@ -76,8 +72,6 @@ export class ReportExpenseComponent implements OnInit {
           this.reportForm.get('startdt').enable();
           this.reportForm.get('enddt').enable();
         }
-        payload.page = this.qpage;
-        payload.sortby = this.qsort;
         this.fetchReport(this.userObj.userid, payload);
 
         this.reportForm.patchValue({
@@ -164,26 +158,10 @@ export class ReportExpenseComponent implements OnInit {
       });
   }
 
-  setPage(page): void {
-    this.router.navigate(['report'],
-      {
-        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt, page: page, sortby: this.qsort }
-      }
-    );
-  }
-
-  createPager(number) {
-    const items: number[] = [];
-    for (let i = 1; i <= number; i++) {
-      items.push(i);
-    }
-    return items;
-  }
-
   showExpense(expid): void {
     this.router.navigate([`expense/view/${expid}`],
       {
-        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt, page: this.qpage || 1, sortby: this.qsort }
+        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt }
       }
     );
   }
@@ -211,25 +189,10 @@ export class ReportExpenseComponent implements OnInit {
   editExpense(expid): void {
     this.router.navigate([`expense/edit/${expid}`],
       {
-        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt, page: this.qpage || 1, sortby: this.qsort }
+        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt }
       }
     );
   }
 
-  sortExpense(sortby): void {
-    if (this.qsort === '') {
-      this.qsort = sortby;
-    } else if (this.qsort.indexOf('-') > -1 ) {
-      this.qsort = sortby;
-    } else {
-      this.qsort = '-' + sortby;
-    }
-
-    this.router.navigate(['report'],
-      {
-        queryParams: { report: this.qreport, startdt: this.qstartdt, enddt: this.qenddt, page: this.qpage || 1, sortby: this.qsort }
-      }
-    );
-  }
 
 }
