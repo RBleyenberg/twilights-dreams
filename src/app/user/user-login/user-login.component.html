@@ -1,23 +1,30 @@
-<div class="container pagecontainer">
+<h1 class="page-header">Login</h1>
 
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" class="form-signin" novalidate autocomplete="off">
-    <h2>Please sign in</h2>
-    <label for="inputUser" class="sr-only">Username</label>
-    <input type="text" id="inputUser" class="form-control" [formControl]="username" placeholder="Username" autofocus>
-    <div class="text-danger" *ngIf="loginForm.get('username').dirty && loginForm.get('username').invalid">
-      Please enter username
-    </div>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" [formControl]="password" placeholder="Password">
-    <div class="text-danger" *ngIf="loginForm.get('password').dirty && loginForm.get('password').invalid">
-      Please enter password
-    </div>
-    <br><br>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="loginForm.invalid" >Sign in</button>
-    <br>
-    <div class="row">
-      <div class="col-md-6 col-sm-6 col-xs-6">Forgot Password</div>
-      <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right"><a [routerLink]="['/user/register']">Register</a></div>
-    </div>
-  </form>
-</div>
+<mat-card class="card content-uitgave">
+  <mat-card-header>
+    <!--<div mat-card-avatar class="example-header-image"></div>-->
+    <!--<mat-card-title>Nieuwe uitgave</mat-card-title>-->
+    <mat-card-subtitle>voer uw login gegevens in en druk op verstuur</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" novalidate autocomplete="off">
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="gebruikernaam" [formControl]="username">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="wachtwoord" [formControl]="password">
+      </mat-form-field>
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button [routerLink]="['/user/register']" mat-button color="accent">Registeer</button>
+    <span class="flex-buttons-style"></span>
+    <button type="submit" [disabled]="loginForm.invalid" mat-raised-button color="primary">Login</button>
+  </mat-card-actions>
+</mat-card>
+<pre>
+  <h3>Json object (remove when done)</h3>
+  {{loginForm.value | json}}
+</pre>
