@@ -16,7 +16,7 @@ export class InsertExpenseComponent implements OnInit {
 
   expenseForm: FormGroup;
   userObj: any;
-  acc: any = ['Food', 'Fees', 'Rent', 'Fare', 'Travel', 'Hotel', 'Phone', 'Internet', 'Repairs', 'Gas', 'Doctor', 'Books', 'Gift', 'Restaurant', 'Electricity', 'Other'];
+  acc: any = ['Eten', 'Huur', 'Reizen', 'Hotel', 'Telefoon', 'Internet', 'Auto', 'Restaurant', 'Anders'];
   expid: string;
   pgTitle: string;
   btnLbl: string;
@@ -75,7 +75,7 @@ export class InsertExpenseComponent implements OnInit {
 
   populateForm(data): void {
     this.expenseForm.patchValue({
-      expdate: this.datePipe.transform(data.expensedate, 'y-MM-dd'),
+      expdate: this.datePipe.transform(data.expensedate, 'dd-MM-y'),
       expaccount: data.expensetype,
       expamt: data.expenseamt,
       expdesc: data.expensedesc

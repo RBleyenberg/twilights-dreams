@@ -13,6 +13,7 @@ const routes: Routes = [
     loadChildren: './expense/expense.module#ExpenseModule'
   },
   { path: '', redirectTo: 'about', pathMatch: 'full' },
+  // page not found maken
   { path: '**', redirectTo: 'about', pathMatch: 'full' }
 ];
 

@@ -1,6 +1,6 @@
-var mongoose = require( 'mongoose' );
-var Expense = require('../models/expense');
-var config = require('../config');
+let mongoose = require('mongoose');
+let Expense = require('../models/expense');
+let config = require('../config');
 
 exports.saveexpense = function(req, res, next){
     const uid = req.params.id;
@@ -56,7 +56,7 @@ exports.saveexpense = function(req, res, next){
 
 	}
     }
-}
+};
 
 exports.delexpense = function(req, res, next) {
 	Expense.remove({_id: req.params.id}, function(err){
@@ -66,7 +66,7 @@ exports.delexpense = function(req, res, next) {
 		message: 'Expense removed successfully'
 	});
     });
-}
+};
 
 exports.getexpense = function(req, res, next){
 	Expense.find({_id:req.params.id}).exec(function(err, expense){
@@ -77,7 +77,7 @@ exports.getexpense = function(req, res, next){
 		data: expense
 	});
     });
-}
+};
 
 exports.expensetotal = function(req, res, next){
     const uid = req.params.id || req.param('uname');
@@ -120,7 +120,7 @@ exports.expensetotal = function(req, res, next){
 	});
     })
     
-}
+};
 
 exports.expensereport = function(req, res, next){
     const uid = req.params.id || req.query.uname;
@@ -200,7 +200,7 @@ exports.expensereport = function(req, res, next){
 			sort: sortby,
 			offset: offset,
 			limit: limit
-		}
+		};
 
 		Expense.paginate(query, options).then(function(result) {
 			res.status(201).json({
@@ -209,4 +209,4 @@ exports.expensereport = function(req, res, next){
 			});
 		});
 	}
-}
+};

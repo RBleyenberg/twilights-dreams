@@ -45,7 +45,7 @@ exports.signup = function(req, res, next){
             });
         });
     });
-}
+};
 
 exports.login = function(req, res, next){
     // find the user
@@ -82,7 +82,7 @@ exports.login = function(req, res, next){
             });	
 		}
 	});
-}
+};
 
 exports.authenticate = function(req, res, next){
     // check header or url parameters or post parameters for token
@@ -104,7 +104,7 @@ exports.authenticate = function(req, res, next){
             		errcode: 'no-token'
 		});
 	}
-}
+};
 
 exports.getuserDetails = function(req, res, next){
     User.find({_id:req.params.id}).exec(function(err, user){
@@ -114,7 +114,7 @@ exports.getuserDetails = function(req, res, next){
 		data: user
 	});
     });
-}
+};
 
 exports.updateUser = function(req, res, next){
     const firstname = req.body.firstname;
@@ -142,7 +142,7 @@ exports.updateUser = function(req, res, next){
 		});
 	});
    }
-}
+};
 
 exports.updatePassword = function(req, res, next){
     const userid = req.params.id;
@@ -176,4 +176,4 @@ exports.updatePassword = function(req, res, next){
             }
         });
     }
-}
+};

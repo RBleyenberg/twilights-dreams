@@ -10,6 +10,8 @@ import { ExpenseService } from './expense.service';
 import { ReportExpenseComponent } from './report-expense/report-expense.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MaterialModule} from '../material.module';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
@@ -28,7 +30,10 @@ import {MaterialModule} from '../material.module';
     DatePipe,
     AuthService,
     AuthGuard,
-    ExpenseService
+    ExpenseService,
+    {provide: MAT_DATE_LOCALE, useValue: 'nl-NL'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ]
 })
 export class ExpenseModule { }

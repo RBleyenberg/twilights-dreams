@@ -5,12 +5,12 @@ var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 
 var jwt    = require('jsonwebtoken'); 
-var config = require('./config'); 
+var config = require('./config');
 
-var user = require('./routes/user.js');
-var expense = require('./routes/expense.js');
+let user = require('./routes/user.js');
+let expense = require('./routes/expense.js');
 
-var port = process.env.PORT || config.serverport;
+let port = process.env.PORT || config.serverport;
 
 mongoose.connect(config.database, function(err){
 	if(err){
