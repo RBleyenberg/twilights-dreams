@@ -1,73 +1,42 @@
-<div class="container pagecontainer">
-  <div class="page-header">
-    <h1>Register</h1>
-  </div>
+<h1 class="page-header">Registeer</h1>
 
-  <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)" class="form-horizontal" novalidate autocomplete="off">
-    <div class="form-group" [ngClass]="{'has-error': registerForm.get('firstname').invalid && registerForm.get('firstname').dirty}">
-      <label for="fname" class="col-sm-2 control-label">First Name <sup>*</sup></label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon"><i class="glyphicon glyphicon-font"></i></div>
-        <input type="text" class="form-control" [formControl]="firstname" id="fname" placeholder="First Name">
-      </div>
-      </div>
-    <div class="form-group" [ngClass]="{'has-error': registerForm.get('lastname').invalid && registerForm.get('lastname').dirty}">
-      <label for="lname" class="col-sm-2 control-label">Last Name <sup>*</sup></label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-bold"></i></div>
-        <input type="text" class="form-control" [formControl]="lastname" id="lname" placeholder="Last Name">
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{'has-error': registerForm.get('email').invalid && registerForm.get('email').dirty}">
-      <label for="email" class="col-sm-2 control-label">Email <sup>*</sup></label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon">@</div>
-        <input type="text" class="form-control" [formControl]="email" id="email" placeholder="Email">
-      </div>
-      <div class="text-danger" *ngIf="registerForm.get('email').dirty && registerForm.get('email').errors">
-        <span class="col-sm-2"></span>
-        <span class="col-sm-10" style="padding:4px 0 0" *ngIf="registerForm.get('email').invalid">
-                    Please enter a valid email
-                </span>
-      </div>
-    </div>
-    <div class="form-group" [ngClass]="{'has-error': registerForm.get('username').invalid && registerForm.get('username').dirty}">
-      <label for="username" class="col-sm-2 control-label">Username <sup>*</sup></label>
-      <div class="input-group col-sm-10">
-        <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-user"></i></div>
-        <input type="text" class="form-control" [formControl]="username" id="username" placeholder="Username">
-      </div>
-    </div>
+<mat-card class="card content-uitgave">
+  <mat-card-header>
+    <!--<div mat-card-avatar class="example-header-image"></div>-->
+    <!--<mat-card-title>Nieuwe uitgave</mat-card-title>-->
+    <mat-card-subtitle>voer uw login gegevens in en druk op verstuur</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
-    <div formGroupName="passwordGroup" [ngClass]="{'has-error': registerForm.get('passwordGroup').errors }">
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)" novalidate autocomplete="off">
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="voornaam" [formControl]="firstname">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="achternaam" [formControl]="lastname">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="email" [formControl]="email">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="gebruikersnaam" [formControl]="username">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="wachtwoord" [formControl]="retypepass">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="text" matInput placeholder="herhaal wachtwoord" [formControl]="password">
+      </mat-form-field>
+    </form>
 
-      <div class="form-group" [ngClass]="{'has-error': registerForm.get('passwordGroup.password').invalid && registerForm.get('passwordGroup.password').dirty}">
-        <label for="password" class="col-sm-2 control-label">Password <sup>*</sup></label>
-        <div class="input-group col-sm-10">
-          <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-asterisk"></i></div>
-          <input type="password" class="form-control" [formControl]="password" id="password" placeholder="Pasword">
-        </div>
-     </div>
-      <div class="form-group" [ngClass]="{'has-error': registerForm.get('passwordGroup.retypepass').invalid && registerForm.get('passwordGroup.retypepass').dirty}">
-        <label for="retypepass" class="col-sm-2 control-label">Retype Password <sup>*</sup></label>
-        <div class="input-group col-sm-10">
-          <div class="input-group-addon"><i class="glyphicon glyphicon glyphicon-asterisk"></i></div>
-          <input type="password" class="form-control" [formControl]="retypepass" id="retypepass" placeholder="Retype Password">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label"></label>
-      <div class="col-sm-5">
-        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Reset</button>
-      </div>
-      <div class="col-sm-5" style="text-align:right">
-        <sup>*</sup> required
-      </div>
-    </div>
-  </form>
-
-</div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button type="reset"  mat-button color="accent">Reset</button>
+    <span class="flex-buttons-style"></span>
+    <button type="submit" [disabled]="registerForm.invalid"  mat-raised-button color="primary">Login</button>
+  </mat-card-actions>
+</mat-card>
+<pre>
+  <h3>Json object (remove when done)</h3>
+  {{registerForm.value | json}}
+</pre>
