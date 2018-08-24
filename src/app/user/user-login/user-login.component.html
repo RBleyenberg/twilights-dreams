@@ -6,16 +6,15 @@
     <!--<mat-card-title>Nieuwe uitgave</mat-card-title>-->
     <mat-card-subtitle>voer uw login gegevens in en druk op verstuur</mat-card-subtitle>
   </mat-card-header>
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" novalidate autocomplete="off">
   <mat-card-content>
+      <mat-form-field  class="text-style">
+        <input type="text" id="inputUser" matInput placeholder="gebruikernaam" [formControl]="username">
+      </mat-form-field>
+      <mat-form-field  class="text-style">
+        <input type="password" id="inputPassword" matInput placeholder="wachtwoord" [formControl]="password">
+      </mat-form-field>
 
-    <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" novalidate autocomplete="off">
-      <mat-form-field  class="text-style">
-        <input type="text" matInput placeholder="gebruikernaam" [formControl]="username">
-      </mat-form-field>
-      <mat-form-field  class="text-style">
-        <input type="text" matInput placeholder="wachtwoord" [formControl]="password">
-      </mat-form-field>
-    </form>
 
   </mat-card-content>
   <mat-card-actions align="end">
@@ -23,6 +22,7 @@
     <span class="flex-buttons-style"></span>
     <button type="submit" [disabled]="loginForm.invalid" mat-raised-button color="primary">Login</button>
   </mat-card-actions>
+  </form>
 </mat-card>
 <pre>
   <h3>Json object (remove when done)</h3>

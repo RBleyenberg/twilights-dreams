@@ -7,9 +7,8 @@
     <!--<mat-card-title>Nieuwe uitgave</mat-card-title>-->
     <mat-card-subtitle>voer uw uitgave in en druk op verstuur</mat-card-subtitle>
   </mat-card-header>
+  <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" novalidate autocomplete="off">
   <mat-card-content>
-
-    <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" novalidate autocomplete="off">
       <mat-form-field class="date-picker-style">
         <input matInput [formControl]="expdate" [matDatepicker]="picker" placeholder="Kies een datum">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -34,8 +33,6 @@
                   cdkAutosizeMinRows="4"
                   cdkAutosizeMaxRows="6"></textarea>
       </mat-form-field>
-    </form>
-
   </mat-card-content>
   <mat-card-actions align="end">
     <button type="reset" *ngIf="btnLbl != 'Update'" mat-button color="warn">Cancel</button>
@@ -43,6 +40,7 @@
     <span class="flex-buttons-style"></span>
     <button type="submit" [disabled]="expenseForm.invalid" mat-raised-button color="primary">{{ btnLbl }}</button>
   </mat-card-actions>
+  </form>
 </mat-card>
 <pre>
   <h3>Json object (remove when done)</h3>

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {IExpense} from '../expense.model';
 import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
+import {MatGridList} from '@angular/material';
+import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 
 @Component({
   selector: 'app-report-expense',
@@ -12,6 +14,16 @@ import {ExpenseService} from '../expense.service';
   styleUrls: ['./report-expense.component.scss']
 })
 export class ReportExpenseComponent implements OnInit {
+
+  @ViewChild('grid') grid: MatGridList;
+
+  gridByBreakpoint = {
+    xl: 2,
+    lg: 2,
+    md: 2,
+    sm: 1,
+    xs: 1
+  };
 
   reportForm: FormGroup;
   userObj: any;
@@ -31,12 +43,15 @@ export class ReportExpenseComponent implements OnInit {
               private expenseService: ExpenseService,
               private route: ActivatedRoute,
               private router: Router,
+              private observableMedia: ObservableMedia,
               private datePipe: DatePipe) {}
   report = new FormControl('opt1');
   startdt = new FormControl({value: '', disabled: true});
   enddt = new FormControl({value: '', disabled: true});
 
+
   ngOnInit() {
+
     this.userObj =  this.authService.currentUser;
     this.reportForm = this.fb.group({
       report: this.report,
@@ -75,6 +90,12 @@ export class ReportExpenseComponent implements OnInit {
 
     this.reportForm.get('report').valueChanges
       .subscribe(value => this.toggleDates(value));
+  }
+
+  ngAfterContentInit() {
+    this.observableMedia.asObservable().subscribe((change: MediaChange) => {
+      this.grid.cols = this.gridByBreakpoint[change.mqAlias];
+    });
   }
 
   toggleDates(opt: string): void {
@@ -133,9 +154,9 @@ export class ReportExpenseComponent implements OnInit {
             });
 
           if (formval.report === 'opt1') {
-            this.reportTitle = 'for ' + this.datePipe.transform(new Date(), 'MMM y');
+            this.reportTitle = 'for ' + this.datePipe.transform(new Date(), 'dd-MM-y');
           } else if (formval.report === 'opt2') {
-            this.reportTitle = 'between ' + this.datePipe.transform(new Date(formval.startdt), 'd MMM y') + ' and ' + this.datePipe.transform(new Date(formval.enddt), 'd MMM y');
+            this.reportTitle = 'between ' + this.datePipe.transform(new Date(formval.startdt), 'dd-MM-y') + ' and ' + this.datePipe.transform(new Date(formval.enddt), 'dd-MM-y');
           } else {
             this.reportTitle = 'for all expenses';
           }
