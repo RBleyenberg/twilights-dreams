@@ -5,6 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import {MatSnackBar} from '@angular/material';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class ExpenseService {
 
   public jwtToken: string;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private snackbar: MatSnackBar) {
     const theUser: any = JSON.parse(localStorage.getItem('currentUser'));
     if (theUser) {
       this.jwtToken = theUser.token;
@@ -74,8 +75,17 @@ export class ExpenseService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response) {
+   handleError(error: Response) {
     console.error(error);
+    this.testSnackbar();
     return Observable.throw(error.json().error || 'Server error');
+
   }
+
+  testSnackbar(){
+    this.snackbar.open('Server error', '', {
+      duration: 2000,
+    });
+  }
+
 }

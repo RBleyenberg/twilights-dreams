@@ -10,8 +10,12 @@ export class AppComponent {
 
   title = 'app';
 
-  constructor( public authService: AuthService ) {}
+  constructor( public authService: AuthService ) {
+
+  }
+
   logout() {
     this.authService.logout();
   }
+
 }

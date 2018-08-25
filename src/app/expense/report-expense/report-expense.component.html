@@ -1,6 +1,6 @@
-<h1 class="page-header">Expense Report</h1>
+<h1 class="page-header">Uitgave rapotage</h1>
 
-
+<div class="flex-container">
     <mat-card class="card content-center">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
@@ -64,7 +64,7 @@
 
         <ng-container matColumnDef="expensedate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
-          <td mat-cell *matCellDef="let element"> {{element.expensedate | date}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expensedate | date:'d MMMM y'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="expenseamt">
@@ -81,5 +81,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </mat-card>
-
+</div>
 

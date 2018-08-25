@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import {UserService} from '../user.service';
+import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 function comparePassword(c: AbstractControl): {[key: string]: boolean} | null {
   const passwordControl = c.get('password');
@@ -26,7 +28,7 @@ export class UserRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private snackbar: MatSnackBar) {
   }
 
   firstname = new FormControl('', [Validators.required]);
@@ -60,9 +62,9 @@ export class UserRegisterComponent implements OnInit {
       this.userService.register(theForm)
         .subscribe(data => {
           if (data.success === false) {
-           // this.toastr.error(data.message);
+            this.snackbar.open(data.message, '', {duration: 2000});
           } else {
-            // this.toastr.success(data.message);
+            this.snackbar.open(data.message, '', {duration: 2000});
             this.router.navigate(['user/login']);
           }
           this.registerForm.reset();

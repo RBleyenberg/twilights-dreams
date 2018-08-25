@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -33,7 +33,9 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

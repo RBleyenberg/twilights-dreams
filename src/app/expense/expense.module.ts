@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 
 import { ExpenseRoutingModule } from './expense-routing.module';

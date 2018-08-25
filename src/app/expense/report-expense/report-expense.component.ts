@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { IExpense } from '../expense.model';
 import { AuthService } from '../../auth/auth.service';
 import { ExpenseService } from '../expense.service';
-import { MatSort } from '@angular/material';
+import {MatSnackBar, MatSort} from '@angular/material';
 
 @Component({
   selector: 'app-report-expense',
@@ -30,12 +30,11 @@ export class ReportExpenseComponent  implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private expenseService: ExpenseService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private datePipe: DatePipe) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private expenseService: ExpenseService, private route: ActivatedRoute, private router: Router, private datePipe: DatePipe, private snackbar: MatSnackBar) {
+
+  }
+
+
   report = new FormControl('opt1');
   startdt = new FormControl({value: '', disabled: true});
   enddt = new FormControl({value: '', disabled: true});
@@ -106,7 +105,7 @@ export class ReportExpenseComponent  implements OnInit {
   getReport(formdata: any): void {
     if (this.reportForm.valid) {
       if (this.reportForm.value.report === 'opt2' && (new Date(this.reportForm.value.startdt) > new Date(this.reportForm.value.enddt))) {
-      //  this.toastr.error('Start date cannot be greater than end date.');
+        this.snackbar.open('begin datum kan niet groter zijn dan eind datum', '', {duration: 2000});
       } else {
         this.fetchReport(this.userObj.userid, this.reportForm.value);
       }
@@ -121,7 +120,7 @@ export class ReportExpenseComponent  implements OnInit {
             this.authService.logout();
             this.router.navigate(['login']);
           }
-        //  this.toastr.error(data.message);
+          this.snackbar.open(data.message, '', {duration: 2000});
         } else {
           this.expenses = data.data.docs;
           console.log("payload" + JSON.stringify(this.expenses));
@@ -165,13 +164,12 @@ export class ReportExpenseComponent  implements OnInit {
               this.authService.logout();
               this.router.navigate(['login']);
             }
-       //     this.toastr.error(data.message);
+            this.snackbar.open(data.message, '', {duration: 2000});
           } else {
 
             this.expenses.splice(idx, 1);
-
-         //   this.toastr.success(data.message);
-          }
+            this.snackbar.open(data.message, '', {duration: 2000});
+           }
         });
     }
   }

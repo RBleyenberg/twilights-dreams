@@ -1,11 +1,11 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {take} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-insert-expense',
@@ -27,6 +27,7 @@ export class InsertExpenseComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private ngZone: NgZone,
+              private snackbar: MatSnackBar,
               private datePipe: DatePipe) {
   }
 
@@ -66,7 +67,7 @@ export class InsertExpenseComponent implements OnInit {
         if (data.data[0]) {
           this.populateForm(data.data[0]);
         } else {
-        //  this.toastr.error('Expense id is incorrect in the URL');
+          this.snackbar.open('uitgave ID is niet goed in de URL', '', {duration: 2000});
           this.router.navigate(['report']);
         }
       }
@@ -96,9 +97,9 @@ export class InsertExpenseComponent implements OnInit {
               this.authService.logout();
               this.router.navigate(['expense/report']);
             }
-          //  this.toastr.error(data.message);
+            this.snackbar.open(data.message, '', {duration: 3000});
           } else {
-          //  this.toastr.success(data.message);
+            this.snackbar.open(data.message, '', {duration: 3000});
           }
           if (!this.expid) {
             this.expenseForm.reset();
