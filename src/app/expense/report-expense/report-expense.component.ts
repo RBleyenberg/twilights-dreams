@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import {IExpense} from '../expense.model';
 import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
-import {MatGridList, MatPaginator, MatSort} from '@angular/material';
+import {MatGridList, MatSort} from '@angular/material';
 import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 
 @Component({
@@ -16,6 +16,7 @@ import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 export class ReportExpenseComponent  implements OnInit {
 
   @ViewChild('grid') grid: MatGridList;
+  @ViewChild(MatSort) sort: MatSort;
 
   gridByBreakpoint = {
     xl: 2,
@@ -29,14 +30,13 @@ export class ReportExpenseComponent  implements OnInit {
   userObj: any;
   reportTitle: string;
   expenses: IExpense[];
-  dataSource: IExpense[];
   totalrows: number;
   qreport: string;
   qstartdt: string;
   qenddt: string;
   exptotal: number;
 
-  displayedColumns: string[] = ['expensetype'];
+  displayedColumns: string[] = ['expensetype', 'expensedate', 'expenseamt', 'expensedesc'];
 
 
 
@@ -53,6 +53,9 @@ export class ReportExpenseComponent  implements OnInit {
 
 
   ngOnInit() {
+
+
+  // this.expenses.sort = this.sort;
 
     this.userObj =  this.authService.currentUser;
     this.reportForm = this.fb.group({
@@ -138,7 +141,6 @@ export class ReportExpenseComponent  implements OnInit {
         //  this.toastr.error(data.message);
         } else {
           this.expenses = data.data.docs;
-          this.dataSource = this.expenses;
           console.log("payload" + JSON.stringify(this.expenses));
           this.totalrows = +data.data.total;
           this.qreport = formval.report;

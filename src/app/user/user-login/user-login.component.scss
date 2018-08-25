@@ -1,5 +1,6 @@
 .card {
   max-width: 400px;
+  padding-bottom: 0;
 }
 
 .example-header-image {
@@ -31,4 +32,8 @@ mat-card-content {
 
 .flex-buttons-style {
   flex: 1 1 auto;
+}
+
+.mat-card-actions {
+ // padding-bottom: 0;
 }

@@ -4,63 +4,77 @@
 <mat-grid-list #grid rowHeight="2:1" gutterSize="15">
   <mat-grid-tile>
 
-    <h3 class="panel-title">Show report</h3>
+    <mat-card class="card content-uitgave">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Keuze menu</mat-card-title>
+        <mat-card-subtitle>selecteer uw gewenste datums voor uitgave report</mat-card-subtitle>
+      </mat-card-header>
+      <form [formGroup]="reportForm" (ngSubmit)="getReport(reportForm.value)" novalidate autocomplete="off">
+        <mat-card-content>
+          <mat-radio-group class="radio-group" [formControl]="report">
+            <mat-radio-button class="radio-button" type="radio" value="opt3" name="report">Alles</mat-radio-button>
+            <mat-radio-button class="radio-button" type="radio" value="opt1" name="report">Deze maand</mat-radio-button>
+            <mat-radio-button class="radio-button" type="radio" value="opt2" name="report">custom</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field class="date-picker-style">
+            <input matInput [formControl]="startdt" [matDatepicker]="picker1" placeholder="Kies een datum">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
 
-    <form [formGroup]="reportForm" (ngSubmit)="getReport(reportForm.value)" novalidate autocomplete="off">
-      <mat-radio-group [formControl]="report">
-      <mat-radio-button type="radio" value="opt1" name="report">Current month</mat-radio-button>
-      <mat-radio-button type="radio" value="opt2" name="report">Date Range</mat-radio-button>
-        <mat-radio-button type="radio" value="opt3" name="report">All</mat-radio-button>
-      </mat-radio-group>
-      <mat-form-field class="date-picker-style">
-        <input matInput [formControl]="startdt" [matDatepicker]="picker1" placeholder="Kies een datum">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="date-picker-style">
-        <input matInput [formControl]="enddt" [matDatepicker]="picker2" placeholder="Kies een datum">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
+          <mat-form-field class="date-picker-style">
+            <input matInput [formControl]="enddt" [matDatepicker]="picker2" placeholder="Kies een datum">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
 
 
-
-        <button type="submit" class="btn btn-primary" [disabled]="reportForm.invalid">Submit</button>
-
-<pre>
-  {{reportForm.value | json}}
-</pre>
-    </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button type="submit" [disabled]="reportForm.invalid" mat-raised-button color="primary">Verstuur</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
 
   </mat-grid-tile>
   <mat-grid-tile>
 
-    <div class="panel panel-danger" *ngIf="expenses && totalrows < 1">
-      <div class="panel-heading">
-        <h3 class="panel-title">No expense found</h3>
-      </div>
+    <div *ngIf="expenses && totalrows < 1">
+        <h3>Geen uitgaves gevonden</h3>
 
-      <div class="panel-body">
-        It seems like you havn't entered any expense for the selected criteria. Please enter you expenses <a
-        routerLink="/expense">here</a>.
-      </div>
+      <p>Binnen uw aangeven critiria zijn er geen uitgaves gevonden. Begin met uigaves in te voeren hier <a
+        routerLink="/expense">naar uitgave invoer</a>.</p>
+
     </div>
 
+    <div *ngIf="expenses && totalrows > 0">
+          <h3>Expense report <i>{{reportTitle}}</i> <b>({{ exptotal?.total | currency: 'euro':true}})</b></h3>
 
-    <div class="panel panel-default" *ngIf="expenses && totalrows > 0">
-      <div class="panel-heading">
-        <h3 class="panel-title">Expense report <i>{{reportTitle}}</i> <b>({{ exptotal?.total | currency: 'euro':true}})</b></h3>
-      </div>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="expenses" class="mat-elevation-z8" matSort>
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Position Column -->
         <ng-container matColumnDef="expensetype">
-          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Uitgave voor </th>
           <td mat-cell *matCellDef="let element"> {{element.expensetype}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expensedate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
+          <td mat-cell *matCellDef="let element"> {{element.expensedate | date}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expenseamt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Kosten </th>
+          <td mat-cell *matCellDef="let element"> {{element.expenseamt}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expensedesc">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Omschrijving </th>
+          <td mat-cell *matCellDef="let element"> {{element.expensedesc}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

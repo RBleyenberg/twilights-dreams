@@ -2,6 +2,6 @@ export interface IExpense {
   userid?: string;
   expensedate: string;
   expensetype: string;
-  expenseamt: string;
+  expenseamt: number;
   expensedesc: string;
 }

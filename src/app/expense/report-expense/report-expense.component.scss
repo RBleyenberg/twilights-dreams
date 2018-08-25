@@ -5,6 +5,62 @@ mat-grid-list {
   margin: 15px;
 }
 table {
-  width: 80%;
-  margin: 20px auto;
+  width: 100%;
+  margin: 5px auto;
+}
+
+
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.page-header {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+.content-uitgave {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+}
+
+mat-card-content {
+  text-align: center;
+}
+
+.card {
+  max-width: 400px;
+  padding-bottom: 0;
+}
+
+.mat-card-actions {
+  padding-bottom: 0;
+}
+
+.text-style {
+  width: 70%;
+}
+
+.flex-buttons-style {
+  flex: 1 1 auto;
+}
+
+.radio-group {
+  width: 100%;
+}
+
+.radio-button {
+  width: 33%;
+}
+
+.date-picker-style {
+  width: 70%;
+  margin-top: 20px;
 }
