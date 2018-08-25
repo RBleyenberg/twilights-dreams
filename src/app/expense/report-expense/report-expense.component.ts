@@ -7,24 +7,15 @@ import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
 import {MatGridList, MatPaginator, MatSort} from '@angular/material';
 import {MediaChange, ObservableMedia} from '@angular/flex-layout';
-import {TableDataSource} from './table-datasource';
 
 @Component({
   selector: 'app-report-expense',
   templateUrl: './report-expense.component.html',
   styleUrls: ['./report-expense.component.scss']
 })
-export class ReportExpenseComponent implements OnInit {
+export class ReportExpenseComponent  implements OnInit {
 
   @ViewChild('grid') grid: MatGridList;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  dataSource: TableDataSource;
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
   gridByBreakpoint = {
     xl: 2,
@@ -38,11 +29,15 @@ export class ReportExpenseComponent implements OnInit {
   userObj: any;
   reportTitle: string;
   expenses: IExpense[];
+  dataSource: IExpense[];
   totalrows: number;
   qreport: string;
   qstartdt: string;
   qenddt: string;
   exptotal: number;
+
+  displayedColumns: string[] = ['expensetype'];
+
 
 
   constructor(private fb: FormBuilder,
@@ -83,6 +78,7 @@ export class ReportExpenseComponent implements OnInit {
         }
         this.fetchReport(this.userObj.userid, payload);
 
+
         this.reportForm.patchValue({
           report: this.qreport,
           startdt: this.qstartdt,
@@ -93,7 +89,6 @@ export class ReportExpenseComponent implements OnInit {
 
     this.reportForm.get('report').valueChanges.subscribe(value => this.toggleDates(value));
 
-    this.dataSource = new TableDataSource(this.paginator, this.sort);
   }
 
   ngAfterContentInit() {
@@ -143,6 +138,8 @@ export class ReportExpenseComponent implements OnInit {
         //  this.toastr.error(data.message);
         } else {
           this.expenses = data.data.docs;
+          this.dataSource = this.expenses;
+          console.log("payload" + JSON.stringify(this.expenses));
           this.totalrows = +data.data.total;
           this.qreport = formval.report;
           if (formval.startdt) {
