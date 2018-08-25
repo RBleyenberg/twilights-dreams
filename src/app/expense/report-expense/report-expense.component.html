@@ -48,13 +48,18 @@
 
     </div>
 
+    <div *ngIf="totalrows == null">
+      <h3>Geen uitgaves gevonden</h3>
+
+      <p>Binnen uw aangeven critiria zijn er geen uitgaves gevonden. Begin met uigaves in te voeren hier <a
+        routerLink="/expense">naar uitgave invoer</a>.</p>
+
+    </div>
+
     <div *ngIf="expenses && totalrows > 0">
           <h3>Expense report <i>{{reportTitle}}</i> <b>({{ exptotal?.total | currency: 'euro':true}})</b></h3>
 
       <table mat-table [dataSource]="expenses" class="mat-elevation-z8" matSort>
-
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Position Column -->
         <ng-container matColumnDef="expensetype">
