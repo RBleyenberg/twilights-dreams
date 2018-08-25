@@ -12,6 +12,7 @@ import {AuthService} from './auth/auth.service';
 import { Layout1Component } from './layout/layout-1/layout-1.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import {MaterialModule} from './material.module';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,10 @@ import {MaterialModule} from './material.module';
     ReactiveFormsModule,
     HttpModule,
     LayoutModule,
-    MaterialModule
+    MaterialModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

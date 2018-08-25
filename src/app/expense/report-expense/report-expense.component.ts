@@ -5,8 +5,9 @@ import { DatePipe } from '@angular/common';
 import {IExpense} from '../expense.model';
 import {AuthService} from '../../auth/auth.service';
 import {ExpenseService} from '../expense.service';
-import {MatGridList} from '@angular/material';
+import {MatGridList, MatPaginator, MatSort} from '@angular/material';
 import {MediaChange, ObservableMedia} from '@angular/flex-layout';
+import {TableDataSource} from './table-datasource';
 
 @Component({
   selector: 'app-report-expense',
@@ -16,6 +17,14 @@ import {MediaChange, ObservableMedia} from '@angular/flex-layout';
 export class ReportExpenseComponent implements OnInit {
 
   @ViewChild('grid') grid: MatGridList;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource: TableDataSource;
+
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['id', 'name'];
+
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
 
   gridByBreakpoint = {
     xl: 2,
@@ -30,11 +39,11 @@ export class ReportExpenseComponent implements OnInit {
   reportTitle: string;
   expenses: IExpense[];
   totalrows: number;
-  pgCounter: number;
   qreport: string;
   qstartdt: string;
   qenddt: string;
   exptotal: number;
+
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -82,8 +91,9 @@ export class ReportExpenseComponent implements OnInit {
       }
     });
 
-    this.reportForm.get('report').valueChanges
-      .subscribe(value => this.toggleDates(value));
+    this.reportForm.get('report').valueChanges.subscribe(value => this.toggleDates(value));
+
+    this.dataSource = new TableDataSource(this.paginator, this.sort);
   }
 
   ngAfterContentInit() {
@@ -134,8 +144,6 @@ export class ReportExpenseComponent implements OnInit {
         } else {
           this.expenses = data.data.docs;
           this.totalrows = +data.data.total;
-          this.pgCounter = Math.floor((this.totalrows + 10 - 1) / 10);
-
           this.qreport = formval.report;
           if (formval.startdt) {
             this.qstartdt = formval.startdt;
@@ -193,6 +201,8 @@ export class ReportExpenseComponent implements OnInit {
       }
     );
   }
+
+
 
 
 }

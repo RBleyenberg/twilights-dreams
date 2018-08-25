@@ -2,8 +2,8 @@ import {
   MatButtonModule, MatCardModule,
   MatCheckboxModule, MatDatepickerModule, MatGridListModule,
   MatIconModule, MatInputModule,
-  MatListModule, MatMenuModule, MatNativeDateModule, MatRadioModule, MatSelectModule,
-  MatSidenavModule,
+  MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatRadioModule, MatSelectModule,
+  MatSidenavModule, MatSortModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
@@ -26,7 +26,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatNativeDateModule,
     MatSelectModule,
     FlexLayoutModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
   ],
   exports: [
     MatButtonModule,
@@ -44,7 +47,10 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatNativeDateModule,
     MatSelectModule,
     FlexLayoutModule,
-    MatRadioModule
+    MatRadioModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
   ],
 })
 export class MaterialModule { }
