@@ -1,10 +1,7 @@
 <h1 class="page-header">Expense Report</h1>
 
 
-<mat-grid-list #grid rowHeight="2:1" gutterSize="15">
-  <mat-grid-tile>
-
-    <mat-card class="card content-uitgave">
+    <mat-card class="card content-center">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Keuze menu</mat-card-title>
@@ -37,29 +34,27 @@
       </form>
     </mat-card>
 
-  </mat-grid-tile>
-  <mat-grid-tile>
 
-    <div *ngIf="expenses && totalrows < 1">
+    <mat-card *ngIf="expenses && totalrows < 1" class="content-align-items">
         <h3>Geen uitgaves gevonden</h3>
 
       <p>Binnen uw aangeven critiria zijn er geen uitgaves gevonden. Begin met uigaves in te voeren hier <a
         routerLink="/expense">naar uitgave invoer</a>.</p>
 
-    </div>
+    </mat-card>
 
-    <div *ngIf="totalrows == null">
+    <mat-card *ngIf="totalrows == null" class="content-align-items">
       <h3>Geen uitgaves gevonden</h3>
 
       <p>Binnen uw aangeven critiria zijn er geen uitgaves gevonden. Begin met uigaves in te voeren hier <a
         routerLink="/expense">naar uitgave invoer</a>.</p>
 
-    </div>
+    </mat-card>
 
-    <div *ngIf="expenses && totalrows > 0">
-          <h3>Expense report <i>{{reportTitle}}</i> <b>({{ exptotal?.total | currency: 'euro':true}})</b></h3>
+    <mat-card *ngIf="expenses && totalrows > 0" class="content-align-items mat-elevation-z6">
+          <h3>uitgaves <i>{{reportTitle}} </i> {{ exptotal?.total | currency: 'EUR':true}}</h3>
 
-      <table mat-table [dataSource]="expenses" class="mat-elevation-z8" matSort>
+      <table mat-table [dataSource]="expenses" matSort>
 
         <!-- Position Column -->
         <ng-container matColumnDef="expensetype">
@@ -74,7 +69,7 @@
 
         <ng-container matColumnDef="expenseamt">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Kosten </th>
-          <td mat-cell *matCellDef="let element"> {{element.expenseamt}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expenseamt | currency: 'EUR':true}} </td>
         </ng-container>
 
         <ng-container matColumnDef="expensedesc">
@@ -85,8 +80,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    </div>
+    </mat-card>
 
-  </mat-grid-tile>
-</mat-grid-list>
 
