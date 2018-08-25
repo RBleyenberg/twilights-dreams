@@ -57,24 +57,24 @@
       <table mat-table [dataSource]="expenses" matSort>
 
         <!-- Position Column -->
-        <ng-container matColumnDef="expensetype">
+        <ng-container matColumnDef="expenseType">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Uitgave voor </th>
-          <td mat-cell *matCellDef="let element"> {{element.expensetype}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expenseType}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="expensedate">
+        <ng-container matColumnDef="expenseDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum </th>
-          <td mat-cell *matCellDef="let element"> {{element.expensedate | date:'d MMMM y'}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expenseDate | date:'d MMMM y'}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="expenseamt">
+        <ng-container matColumnDef="expenseAmount">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Kosten </th>
-          <td mat-cell *matCellDef="let element"> {{element.expenseamt | currency: 'EUR':true}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expenseAmount | currency: 'EUR':true}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="expensedesc">
+        <ng-container matColumnDef="expenseDescription">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Omschrijving </th>
-          <td mat-cell *matCellDef="let element"> {{element.expensedesc}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.expenseDescription}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

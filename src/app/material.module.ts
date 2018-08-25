@@ -7,7 +7,6 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -25,7 +24,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FlexLayoutModule,
     MatRadioModule,
     MatPaginatorModule,
     MatSortModule,
@@ -47,7 +45,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    FlexLayoutModule,
     MatRadioModule,
     MatPaginatorModule,
     MatSortModule,

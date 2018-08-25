@@ -26,7 +26,7 @@ export class ReportExpenseComponent  implements OnInit {
   qenddt: string;
   exptotal: number;
 
-  displayedColumns: string[] = ['expensetype', 'expensedate', 'expenseamt', 'expensedesc'];
+  displayedColumns: string[] = ['expenseType', 'expenseDate', 'expenseAmount', 'expenseDescription'];
 
 
 

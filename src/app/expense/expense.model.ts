@@ -1,7 +1,7 @@
 export interface IExpense {
   userid?: string;
-  expensedate: string;
-  expensetype: string;
-  expenseamt: number;
-  expensedesc: string;
+  expenseDate: string;
+  expenseType: string;
+  expenseAmount: number;
+  expenseDescription: string;
 }

@@ -4,10 +4,10 @@ let config = require('../config');
 
 exports.saveexpense = function(req, res, next){
     const uid = req.params.id;
-    const dt = req.body.expdate;
-    const typ = req.body.expaccount;
-    const amt = req.body.expamt;
-    const desc = req.body.expdesc;
+    const dt = req.body.expenseDate;
+    const typ = req.body.expenseAccount;
+    const amt = req.body.expenseAmount;
+    const desc = req.body.expenseDescription;
     const expid = req.body.expid;
 
     if (!uid || !dt || !typ || !amt) {
@@ -20,10 +20,10 @@ exports.saveexpense = function(req, res, next){
 			if(err){ res.status(400).json({ success: false, message: 'Error processing request '+ err }); }
 				
 			if(expense) {
-				expense.expensedate = dt;
-				expense.expensetype = typ;
-				expense.expenseamt = amt;
-				expense.expensedesc = desc;
+				expense.expenseDate = dt;
+				expense.expenseType = typ;
+				expense.expenseAmount = amt;
+				expense.expenseDescription = desc;
 			}
 			expense.save(function(err) {
 				if(err){ res.status(400).json({ success: false, message: 'Error processing request '+ err }); }
@@ -39,10 +39,10 @@ exports.saveexpense = function(req, res, next){
 		// Add new expense
 		let oExpense = new Expense({
 			userid: uid,
-			expensedate: dt,
-			expensetype: typ,
-			expenseamt: amt,
-			expensedesc: desc
+			expenseDate: dt,
+			expenseType: typ,
+			expenseAmount: amt,
+			expenseDescription: desc
 		});
 
 		oExpense.save(function(err) {
@@ -97,10 +97,10 @@ exports.expensetotal = function(req, res, next){
         let fdt = new Date(year + "/" + month + "/1");
         let tdt = new Date(year + "/" + month + "/31");
 
-        match = { "$match": {userid:uid, expensedate:{$gte: fdt, $lte: tdt}} };
+        match = { "$match": {userid:uid, expenseDate:{$gte: fdt, $lte: tdt}} };
 
     } else if (rptype === 'opt2'){
-        match = { "$match": { userid:uid, expensedate:{$gte: fromdt, $lte: todt}} };
+        match = { "$match": { userid:uid, expenseDate:{$gte: fromdt, $lte: todt}} };
     } else {
         match = { "$match": { userid:uid } };
     }
@@ -109,7 +109,7 @@ exports.expensetotal = function(req, res, next){
         match,
         { "$group": {
             "_id": 1,
-            "total": { "$sum": "$expenseamt" }
+            "total": { "$sum": "$expenseAmount" }
         }}
     ],
     function(err, result) {
@@ -144,7 +144,7 @@ exports.expensereport = function(req, res, next){
     }
 
     if(!sortby) {
-	sortby = 'expensedate';
+	sortby = 'expenseDate';
     }
 
     var offset = (page - 1) * limit;
@@ -166,7 +166,7 @@ exports.expensereport = function(req, res, next){
 			let fdt = new Date(year + "/" + month + "/1");
 			let tdt = new Date(year + "/" + month + "/31");
 	
-			query = { userid:uid, expensedate:{$gte: fdt, $lte: tdt} };
+			query = { userid:uid, expenseDate:{$gte: fdt, $lte: tdt} };
 
 			Expense.count(query, function(err, count){
 				if(count > offset){
@@ -176,7 +176,7 @@ exports.expensereport = function(req, res, next){
 
 		} else if (rptype === 'opt2'){
 			// return records within given date range
-			query = { userid:uid, expensedate:{$gte: fromdt, $lte: todt} };
+			query = { userid:uid, expenseDate:{$gte: fromdt, $lte: todt} };
 
 			Expense.count(query, function(err, count){
 				if(count > offset){
@@ -196,7 +196,7 @@ exports.expensereport = function(req, res, next){
 		}
 
 		var options = {
-			select: 'expensedate expensetype expenseamt expensedesc',
+			select: 'expenseDate expenseType expenseAmount expenseDescription',
 			sort: sortby,
 			offset: offset,
 			limit: limit

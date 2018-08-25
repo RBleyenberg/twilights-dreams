@@ -33,10 +33,10 @@ export class InsertExpenseComponent implements OnInit {
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  expdate = new FormControl('', [Validators.required]);
-  expaccount = new FormControl('', [Validators.required]);
-  expamt = new FormControl('', [Validators.required, Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]);
-  expdesc = new FormControl();
+  expenseDate = new FormControl('', [Validators.required]);
+  expenseAccount = new FormControl('', [Validators.required]);
+  expenseAmount = new FormControl('', [Validators.required, Validators.pattern('[0-9]+(\.[0-9][0-9]?)?')]);
+  expenseDescription = new FormControl();
 
   ngOnInit() {
 
@@ -54,10 +54,10 @@ export class InsertExpenseComponent implements OnInit {
 
     this.userObj =  this.authService.currentUser;
     this.expenseForm = this.fb.group({
-      expdate: this.expdate,
-      expaccount: this.expaccount,
-      expamt: this.expamt,
-      expdesc: this.expdesc
+      expenseDate: this.expenseDate,
+      expenseAccount: this.expenseAccount,
+      expenseAmount: this.expenseAmount,
+      expenseDescription: this.expenseDescription
     });
   }
 
@@ -76,10 +76,10 @@ export class InsertExpenseComponent implements OnInit {
 
   populateForm(data): void {
     this.expenseForm.patchValue({
-      expdate: this.datePipe.transform(data.expensedate, 'dd-MM-y'),
-      expaccount: data.expensetype,
-      expamt: data.expenseamt,
-      expdesc: data.expensedesc
+      expenseDate: this.datePipe.transform(data.expenseDate, 'dd-MM-y'),
+      expenseAccount: data.expenseType,
+      expenseAmount: data.expenseAmount,
+      expenseDescription: data.expenseDescription
     });
   }
 

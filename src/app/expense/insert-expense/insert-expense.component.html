@@ -10,26 +10,26 @@
   <form [formGroup]="expenseForm" (ngSubmit)="saveExpense(expenseForm.value)" novalidate autocomplete="off">
   <mat-card-content>
       <mat-form-field class="date-picker-style">
-        <input matInput [formControl]="expdate" [matDatepicker]="picker" placeholder="Kies een datum">
+        <input matInput [formControl]="expenseDate" [matDatepicker]="picker" placeholder="Kies een datum">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field class="select-style">
-        <mat-select placeholder="Soort uitgave" [formControl]="expaccount">
+        <mat-select placeholder="Soort uitgave" [formControl]="expenseAccount">
           <mat-option *ngFor="let a of acc" [value]="a">
             {{a}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field  class="amount-style">
-        <input type="number" matInput placeholder="Uitgave bedrag" [formControl]="expamt">
+        <input type="number" matInput placeholder="Uitgave bedrag" [formControl]="expenseAmount">
       </mat-form-field>
       <mat-form-field  class="description-style" [style.fontSize]="16">
         <mat-label>Omschrijving van de uitgave</mat-label>
         <textarea matInput
                   cdkTextareaAutosize
                   #autosize="cdkTextareaAutosize"
-                  [formControl]="expdesc"
+                  [formControl]="expenseDescription"
                   cdkAutosizeMinRows="4"
                   cdkAutosizeMaxRows="6"></textarea>
       </mat-form-field>
